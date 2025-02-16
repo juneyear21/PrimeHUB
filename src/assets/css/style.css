@@ -1,0 +1,678 @@
+/* Base Styles */
+:root {
+    --primary-color: #00a8e1;
+    --secondary-color: #0f171e;
+    --background-dark: #1a242f;
+    --text-color: #ffffff;
+    --text-muted: #8197a4;
+    --hover-color: #19232e;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+/* Navigation Styles */
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: var(--background-dark);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.nav-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.hamburger-menu {
+    background: none;
+    border: none;
+    color: var(--text-color);
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: none;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.nav-middle {
+    flex: 0.5;
+}
+
+.search-container {
+    position: relative;
+    width: 100%;
+}
+
+.search-container input {
+    width: 100%;
+    padding: 0.5rem 2.5rem 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    background-color: var(--hover-color);
+    color: var(--text-color);
+}
+
+.search-btn {
+    position: absolute;
+    right: 0.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+}
+
+/* Content Sections */
+.content-section {
+    padding: 0rem 2rem 0rem 2rem;
+}
+
+.content-section h2 {
+    margin-bottom: 1rem;
+    color: var(--text-color);
+}
+
+.movie-carousel {
+    display: flex;
+    overflow-x: auto;
+    gap: 1rem;
+    padding: 1rem 0;
+    scrollbar-width: none;
+}
+
+.movie-carousel::-webkit-scrollbar {
+    display: none;
+}
+
+/* Content Section Movie Cards */
+.movie-carousel {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 250px;
+    gap: 1.5rem;
+    overflow-x: auto;
+    padding: 2rem 0;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+}
+
+.movie-card {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    scroll-snap-align: start;
+}
+
+.movie-card img {
+    width: 100%;
+    height: 375px;
+    object-fit: cover;
+}
+
+.movie-card:hover {
+    transform: scale(1.05);
+}
+
+.movie-card:hover .movie-info {
+    opacity: 1;
+}
+
+.movie-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1.5rem;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(10px);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.movie-info h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+}
+
+.movie-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.rating {
+    color: var(--primary-color);
+}
+
+.year {
+    color: var(--text-muted);
+}
+
+.movie-card .watch-now {
+    width: 100%;
+    text-align: center;
+    font-size: 0.9rem;
+    padding: 0.6rem;
+}
+
+/* Scrollbar Styling */
+.movie-carousel::-webkit-scrollbar {
+    height: 8px;
+}
+
+.movie-carousel::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+
+.movie-carousel::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 4px;
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 2000;
+}
+
+.modal-content {
+    position: relative;
+    width: 90%;
+    max-width: 1200px;
+    margin: 2rem auto;
+    background-color: var(--background-dark);
+    border-radius: 8px;
+    padding: 2rem;
+}
+
+.close-modal {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    font-size: 1.5rem;
+    color: var(--text-color);
+    cursor: pointer;
+}
+
+/* Footer */
+footer {
+    background-color: var(--background-dark);
+    padding: 2rem;
+    margin-top: 2rem;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.footer-links {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.footer-links a {
+    color: var(--text-muted);
+    text-decoration: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hamburger-menu {
+        display: block;
+    }
+
+    .nav-middle {
+        display: none;
+    }
+
+    .nav-right {
+        display: none;
+    }
+
+    .content-section {
+        padding: 1rem;
+    }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .movie-carousel {
+        grid-auto-columns: 180px;
+    }
+
+    .movie-card img {
+        height: 270px;
+    }
+}
+
+/* Update the first content section to have proper spacing from navbar */
+.content-section:first-child {
+    margin-top: 2rem;
+}
+
+/* Hero Carousel Styles */
+.hero-carousel {
+    margin-top: 4rem;
+    height: 80vh;
+    position: relative;
+    overflow: hidden;
+}
+
+.carousel-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.carousel-slide {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.8s ease;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: flex-end;
+    padding: 4rem;
+}
+
+.carousel-slide.active {
+    opacity: 1;
+}
+
+.carousel-content {
+    position: relative;
+    z-index: 2;
+    max-width: 600px;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(10px);
+    padding: 2rem;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 2rem;
+}
+
+.carousel-content h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.carousel-content p {
+    margin-bottom: 1.5rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.carousel-rating {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.carousel-controls {
+    position: absolute;
+    bottom: 5%;
+    right: 5%;
+    display: flex;
+    gap: 1rem;
+    z-index: 10;
+}
+
+.prev-btn, .next-btn {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-color);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.prev-btn:hover, .next-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.1);
+}
+
+.carousel-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0) 100%);
+    z-index: 1;
+}
+
+.carousel-title {
+    flex: 1;
+    padding-right: 4rem;
+    max-width: 800px;
+}
+
+.carousel-title h3 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: #fff;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+.carousel-title p {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.9);
+    max-width: 600px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+}
+
+@media (max-width: 768px) {
+    .hero-carousel {
+        height: 60vh;
+    }
+
+    .carousel-slide {
+        padding: 2rem;
+    }
+
+    .carousel-content {
+        max-width: 100%;
+    }
+
+    .carousel-content h2 {
+        font-size: 1.8rem;
+    }
+}
+
+/* Mobile Responsive Styles */
+@media (max-width: 768px) {
+    /* Navigation */
+    .navbar {
+        padding: 0.5rem 1rem;
+    }
+
+    .logo {
+        font-size: 1.2rem;
+    }
+
+    /* Hero Carousel */
+    .hero-carousel {
+        margin-top: 3rem;
+        height: 50vh;
+    }
+
+    .carousel-info {
+        padding: 1rem;
+    }
+
+    .carousel-title h3 {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .carousel-title p {
+        font-size: 0.9rem;
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
+        line-clamp: 2;
+        line-clamp: 2;
+        line-clamp: 2;
+        line-clamp: 2;
+        line-clamp: 2;
+    }
+
+    .carousel-controls {
+        bottom: 1rem;
+        right: 1rem;
+    }
+
+    .prev-btn, .next-btn {
+        width: 36px;
+        height: 36px;
+        font-size: 0.8rem;
+    }
+
+    /* Content Sections */
+    .content-section {
+        padding: 0.5rem;
+    }
+
+    .content-section h2 {
+        font-size: 1.2rem;
+        margin: 1rem 0 0.5rem 0.5rem;
+    }
+
+    /* Movie Cards */
+    .movie-carousel {
+        grid-auto-columns: 140px;
+        gap: 0.8rem;
+        padding: 1rem 0;
+    }
+
+    .movie-card {
+        border-radius: 8px;
+    }
+
+    .movie-card img {
+        height: 210px;
+    }
+
+    .movie-info {
+        padding: 0.8rem;
+    }
+
+    .movie-info h3 {
+        font-size: 0.9rem;
+        margin-bottom: 0.3rem;
+    }
+
+    .movie-meta {
+        font-size: 0.8rem;
+        margin-bottom: 0.5rem;
+    }
+
+    /* Modal */
+    .modal-content {
+        width: 95%;
+        margin: 1rem auto;
+        padding: 1rem;
+    }
+
+    .modal-header-content h2 {
+        font-size: 1.3rem;
+    }
+
+    .modal-info p {
+        font-size: 0.9rem;
+    }
+
+    .meta-info {
+        font-size: 0.8rem;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    /* Footer */
+    footer {
+        padding: 1rem;
+        margin-top: 1rem;
+    }
+
+    .footer-content {
+        font-size: 0.9rem;
+    }
+
+    .footer-links {
+        gap: 1rem;
+        flex-wrap: wrap;
+        font-size: 0.8rem;
+    }
+}
+
+/* Small Mobile Devices */
+@media (max-width: 480px) {
+    .movie-carousel {
+        grid-auto-columns: 120px;
+        gap: 0.5rem;
+    }
+
+    .movie-card img {
+        height: 180px;
+    }
+
+    .hero-carousel {
+        height: 40vh;
+    }
+
+    .carousel-title h3 {
+        font-size: 1.2rem;
+    }
+
+    .carousel-title p {
+        font-size: 0.8rem;
+        -webkit-line-clamp: 2;
+    }
+
+    .nav-left {
+        gap: 0.5rem;
+    }
+
+    .hamburger-menu {
+        font-size: 1.2rem;
+    }
+}
+
+/* Tablet Devices */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .movie-carousel {
+        grid-auto-columns: 180px;
+    }
+
+    .movie-card img {
+        height: 270px;
+    }
+
+    .hero-carousel {
+        height: 60vh;
+    }
+
+    .carousel-title h3 {
+        font-size: 2rem;
+    }
+
+    .carousel-title p {
+        font-size: 1rem;
+    }
+}
+
+/* Ensure smooth transitions */
+.movie-card, .carousel-slide, .modal {
+    transition: all 0.3s ease-in-out;
+}
+
+/* Movie Details Page Styles */
+.movie-detail-container {
+    margin-top: 60px;
+    padding: 20px;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.player-container {
+    width: 100%;
+    aspect-ratio: 16/9;
+    background: #000;
+    margin-bottom: 2rem;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.player-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.movie-info-container {
+    padding: 2rem;
+    background: var(--background-dark);
+    border-radius: 8px;
+    margin-bottom: 2rem;
+}
+
+.back-btn {
+    background: none;
+    border: none;
+    color: var(--text-color);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.5rem;
+}
+
+.back-btn:hover {
+    color: var(--primary-color);
+}
+
+.related-content {
+    margin-top: 2rem;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .movie-detail-container {
+        padding: 10px;
+        margin-top: 50px;
+    }
+
+    .movie-info-container {
+        padding: 1rem;
+    }
+}
