@@ -39,31 +39,14 @@ async function loadMovieDetails() {
         const playerContainer = document.getElementById('playerContainer');
         playerContainer.innerHTML = `
             <div class="player-wrapper">
-                ${seasonEpisodeControls}
-                <div class="player-overlay" id="playerOverlay">
-                    <div class="player-message">
-                        <i class="fas fa-shield-alt"></i>
-                        <span>Click here to load the player</span>
-                        <small>We block ads and popups for better experience</small>
-                    </div>
-                </div>
-                <div class="player-frame" id="playerFrame" style="display: none;">
-                    <iframe
-                        src="about:blank"
-                        data-src="https://player.videasy.net/${mediaType}/${movieId}${mediaType === 'tv' ? '/1/1' : ''}"
-                        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
-                        frameborder="0"
-                        allowfullscreen
-                        sandbox="allow-same-origin allow-scripts allow-forms"
-                        allow="encrypted-media"
-                    ></iframe>
-                </div>
-            </div>
-            <div class="language-instruction">
-                <div class="instruction-box">
-                    <img src="https://flagsapi.com/IN/flat/24.png" alt="Indian Flag" class="flag-icon">
-                    <p>For Hindi audio: Select cloud/server option within the player and choose "Fade Hindi" if available.</p>
-                </div>
+                <iframe
+                    src="https://player.videasy.net/${mediaType}/${movieId}"
+                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
+                    frameborder="0"
+                    allowfullscreen
+                    sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox"
+                    allow="encrypted-media; web-share; picture-in-picture; fullscreen"
+                ></iframe>
             </div>
         `;
 

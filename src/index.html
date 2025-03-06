@@ -8,6 +8,18 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
+    <div class="floating-icons">
+        <i class="fas fa-film floating-icon"></i>
+        <i class="fas fa-tv floating-icon"></i>
+        <i class="fas fa-video floating-icon"></i>
+        <i class="fas fa-play-circle floating-icon"></i>
+        <i class="fas fa-star floating-icon"></i>
+        <i class="fas fa-ticket-alt floating-icon"></i>
+        <i class="fas fa-camera floating-icon"></i>
+        <i class="fas fa-photo-video floating-icon"></i>
+        <i class="fas fa-film floating-icon"></i>
+        <i class="fas fa-play floating-icon"></i>
+    </div>
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-left">
@@ -34,44 +46,70 @@
     </nav>
 
     <div id="auto-carousel" class="hero-carousel">
-        <div class="carousel-container" id="heroCarousel">
+        <div class="carousel-container" id="heroCarousel"></div>
+        <div class="carousel-overlay">
+            <div class="carousel-content" id="carousel-content">
+                <div class="carousel-rating">
+                    <span class="imdb-rating">★</span>
+                    <span class="rating-value"></span>
+                    <span class="year"></span>
+                </div>
+                <h2 class="carousel-title"></h2>
+                <p class="carousel-description"></p>
+                <div class="carousel-actions">
+                    <button class="play-btn">
+                        <i class="fas fa-play"></i> Watch Now
+                    </button>
+                    <button class="more-info-btn">
+                        <i class="fas fa-info-circle"></i> More Info
+                    </button>
+                </div>
+            </div>
         </div>
-        <div class="carousel-info">
-            <div class="carousel-title" id="carousel-title">
-                <h3>Lorem</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-            </div>
-            <div class="carousel-controls">
-                <button class="prev-btn"><i class="fas fa-chevron-left"></i></button>
-                <button class="next-btn"><i class="fas fa-chevron-right"></i></button>
-            </div>
+        <div class="carousel-controls">
+            <button class="prev-btn"><i class="fas fa-chevron-left"></i></button>
+            <button class="next-btn"><i class="fas fa-chevron-right"></i></button>
         </div>
     </div>
 
-<div id="Content Sections">
     <!-- Content Sections -->
-    <section class="content-section">
-        <h2>Trending Now</h2>
-        <div class="movie-carousel" id="trendingMovies"></div>
-    </section>
+    <div id="Content Sections">
+        <!-- Trending Section -->
+        <section class="content-section">
+            <div class="section-header">
+                <h2>Trending Now</h2>
+                <a href="all-movies.html?type=trending" class="see-more">See More</a>
+            </div>
+            <div class="movie-carousel" id="trendingMovies"></div>
+        </section>
 
-    <section class="content-section">
-        <h2>Popular Movies</h2>
-        <div class="movie-carousel" id="popularMovies"></div>
-    </section>
+        <!-- Popular Movies Section -->
+        <section class="content-section">
+            <div class="section-header">
+                <h2>Popular Movies</h2>
+                <a href="all-movies.html?type=popular" class="see-more">See More</a>
+            </div>
+            <div class="movie-carousel" id="popularMovies"></div>
+        </section>
 
-    <section class="content-section">
-        <h2>Top TV Shows</h2>
-        <div class="movie-carousel" id="topTVShows"></div>
-    </section>
+        <!-- Top TV Shows Section -->
+        <section class="content-section">
+            <div class="section-header">
+                <h2>Top TV Shows</h2>
+                <a href="all-movies.html?type=topTv" class="see-more">See More</a>
+            </div>
+            <div class="movie-carousel" id="topTVShows"></div>
+        </section>
 
-    <section class="content-section">
-        <h2>New Releases</h2>
-        <div class="movie-carousel" id="newReleases"></div>
-    </section>
-
-</div>
-
+        <!-- New Releases Section -->
+        <section class="content-section">
+            <div class="section-header">
+                <h2>New Releases</h2>
+                <a href="all-movies.html?type=newReleases" class="see-more">See More</a>
+            </div>
+            <div class="movie-carousel" id="newReleases"></div>
+        </section>
+    </div>
 
     <!-- Movie Details Modal -->
     <div class="modal" id="movieModal">

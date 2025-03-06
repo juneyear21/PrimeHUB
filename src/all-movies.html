@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Movies - PrimeHUB</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-left">
+            <button class="back-btn" onclick="history.back()">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+            <div class="logo">PrimeHUB</div>
+        </div>
+    </nav>
+
+    <div class="all-movies-container">
+        <h1 id="pageTitle">Loading...</h1>
+        <div class="movies-grid" id="moviesGrid"></div>
+        <div class="pagination" id="pagination"></div>
+    </div>
+
+    <script src="js/all-movies.js"></script>
+</body>
+</html>
