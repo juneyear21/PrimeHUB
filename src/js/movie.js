@@ -12,7 +12,7 @@ async function loadMovieDetails() {
     try {
         // Fetch movie/show details
         const response = await fetch(
-            `${TMDB_BASE_URL}/${mediaType}/${movieId}?api_key=${TMDB_API_KEY}`
+            `${TMDB_BASE_URL}/${mediaType}/${movieId}?api_key=${TMDB_API_KEY}&append_to_response=credits`
         );
         const movie = await response.json();
 
@@ -161,12 +161,61 @@ async function loadMovieDetails() {
         const movieInfo = document.getElementById('movieInfo');
         movieInfo.innerHTML = `
             <h1>${movie.title || movie.name}</h1>
-            <div class="meta-info">
-                <span>Rating: ★ ${movie.vote_average.toFixed(1)}</span>
-                <span>Release: ${movie.release_date || movie.first_air_date}</span>
-                <span>Runtime: ${movie.runtime || movie.episode_run_time?.[0] || 'N/A'} min</span>
+            
+            <div class="movie-meta-info">
+                <div class="meta-item rating-badge">
+                    <i class="fas fa-star"></i>
+                    <span class="rating-value">${movie.vote_average.toFixed(1)}</span>
+                </div>
+                <div class="meta-item">
+                    <i class="fas fa-clock"></i>
+                    <span>${movie.runtime || movie.episode_run_time?.[0] || 'N/A'} min</span>
+                </div>
+                <div class="meta-item">
+                    <i class="fas fa-calendar"></i>
+                    <span>${(movie.release_date || movie.first_air_date || '').split('-')[0]}</span>
+                </div>
             </div>
+
+            <div class="genre-tags">
+                ${movie.genres.map(genre => `
+                    <span class="genre-tag">${genre.name}</span>
+                `).join('')}
+            </div>
+
             <p class="overview">${movie.overview}</p>
+
+            <div class="movie-details">
+                <div class="detail-item">
+                    <span class="detail-label">Director</span>
+                    <span class="detail-value">${
+                        movie.credits?.crew?.find(person => person.job === 'Director')?.name || 'N/A'
+                    }</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Writers</span>
+                    <span class="detail-value">${
+                        movie.credits?.crew
+                            ?.filter(person => person.department === 'Writing')
+                            ?.slice(0, 2)
+                            ?.map(writer => writer.name)
+                            ?.join(', ') || 'N/A'
+                    }</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Stars</span>
+                    <span class="detail-value">${
+                        movie.credits?.cast
+                            ?.slice(0, 3)
+                            ?.map(actor => actor.name)
+                            ?.join(', ') || 'N/A'
+                    }</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Language</span>
+                    <span class="detail-value">${movie.original_language?.toUpperCase() || 'N/A'}</span>
+                </div>
+            </div>
         `;
 
         // Load related content
@@ -251,5 +300,103 @@ async function getStreamUrl() {
     return iframe?.src || null;
 }
 
+// Add to both app.js and movie.js
+document.getElementById('hamburgerMenu').addEventListener('click', () => {
+    const navMiddle = document.querySelector('.nav-middle');
+    navMiddle.classList.toggle('active');
+});
+
+// Close mobile menu when clicking outside
+document.addEventListener('click', (e) => {
+    if (!e.target.closest('.nav-middle') && !e.target.closest('.hamburger-menu')) {
+        document.querySelector('.nav-middle').classList.remove('active');
+    }
+});
+
 // Initialize page
 document.addEventListener('DOMContentLoaded', loadMovieDetails);
+
+// Add this to both app.js and movie.js
+// Search Functionality
+let searchTimeout;
+
+function initializeSearch() {
+    const searchForm = document.getElementById('searchForm');
+    const searchInput = document.getElementById('searchInput');
+    const searchResults = document.getElementById('searchResults');
+
+    if (!searchForm || !searchInput || !searchResults) return;
+
+    // Add form submit handler
+    searchForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const query = searchInput.value.trim();
+        if (query.length >= 3) {
+            window.location.href = `search-results.html?query=${encodeURIComponent(query)}`;
+        }
+    });
+
+    // Add input handler for dropdown results
+    searchInput.addEventListener('input', (e) => {
+        clearTimeout(searchTimeout);
+        const query = e.target.value.trim();
+        
+        if (query.length < 3) {
+            searchResults.style.display = 'none';
+            return;
+        }
+
+        searchTimeout = setTimeout(() => {
+            handleSearch(query);
+        }, 500);
+    });
+
+    // Add click outside listener to close search results
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.nav-middle')) {
+            searchResults.style.display = 'none';
+        }
+    });
+}
+
+// Update handleSearch function
+async function handleSearch(query) {
+    const searchResults = document.getElementById('searchResults');
+    if (!searchResults) return;
+
+    try {
+        const response = await fetch(
+            `${TMDB_BASE_URL}/search/multi?api_key=${TMDB_API_KEY}&query=${query}`
+        );
+        const data = await response.json();
+
+        const validResults = data.results
+            .filter(item => (item.media_type === 'movie' || item.media_type === 'tv') && item.poster_path)
+            .slice(0, 5);
+
+        if (validResults.length === 0) {
+            searchResults.style.display = 'none';
+            return;
+        }
+
+        searchResults.innerHTML = validResults.map(item => `
+            <div class="search-result-item" onclick="location.href='movie.html?id=${item.id}&type=${item.media_type}'">
+                <img src="${TMDB_IMAGE_BASE_URL}/w92${item.poster_path}" alt="${item.title || item.name}">
+                <div>
+                    <h4>${item.title || item.name}</h4>
+                    <p>${item.media_type} • ${(item.release_date || item.first_air_date || '').split('-')[0]}</p>
+                </div>
+            </div>
+        `).join('');
+
+        searchResults.style.display = 'block';
+    } catch (error) {
+        console.error('Error during search:', error);
+    }
+}
+
+// Initialize search when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    initializeSearch();
+    // ... existing initialization code ...
+});

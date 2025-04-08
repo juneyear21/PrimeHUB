@@ -8,19 +8,80 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <!-- Navigation -->
+    <!-- Update navbar in both index.html and movie.html -->
     <nav class="navbar">
         <div class="nav-left">
-            <button class="back-btn" onclick="history.back()">
-                <i class="fas fa-arrow-left"></i>
+            <button class="hamburger-menu" id="hamburgerMenu">
+                <i class="fas fa-bars"></i>
             </button>
-            <div class="logo">PrimeHUB</div>
+            <a href="index.html" class="logo">PrimeHUB</a>
+        </div>
+        
+        <div class="nav-middle">
+            <div class="search-container">
+                <form id="searchForm">
+                    <input type="text" id="searchInput" placeholder="Search movies & TV shows...">
+                    <button type="submit" class="search-btn"><i class="fas fa-search"></i></button>
+                </form>
+            </div>
+            <div class="search-results" id="searchResults"></div>
+        </div>
+
+        <div class="nav-right">
+            <div class="categories-dropdown">
+                <button class="dropdown-btn">Categories <i class="fas fa-chevron-down"></i></button>
+                <div class="dropdown-content" id="categoriesDropdown"></div>
+            </div>
         </div>
     </nav>
 
     <div class="movie-detail-container">
         <div class="player-container" id="playerContainer"></div>
-        <div class="movie-info-container" id="movieInfo"></div>
+        <div class="movie-info-container" id="movieInfo">
+            <h1>Movie Title</h1>
+            
+            <div class="movie-meta-info">
+                <div class="meta-item rating-badge">
+                    <i class="fas fa-star"></i>
+                    <span class="rating-value">8.5</span>
+                </div>
+                <div class="meta-item">
+                    <i class="fas fa-clock"></i>
+                    <span>Runtime</span>
+                </div>
+                <div class="meta-item">
+                    <i class="fas fa-calendar"></i>
+                    <span>Release Year</span>
+                </div>
+            </div>
+
+            <div class="genre-tags">
+                <!-- Genre tags will be added dynamically -->
+            </div>
+
+            <p class="overview">
+                <!-- Movie overview will be added dynamically -->
+            </p>
+
+            <div class="movie-details">
+                <div class="detail-item">
+                    <span class="detail-label">Director</span>
+                    <span class="detail-value">Director Name</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Writers</span>
+                    <span class="detail-value">Writer Names</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Stars</span>
+                    <span class="detail-value">Actor Names</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Language</span>
+                    <span class="detail-value">Original Language</span>
+                </div>
+            </div>
+        </div>
         <div class="related-content" id="relatedContent"></div>
     </div>
 

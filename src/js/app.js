@@ -42,16 +42,21 @@ const createMovieCard = (movie) => {
     
     card.innerHTML = `
         <img src="${imageUrl}" alt="${movie.title || movie.name}">
+        <button class="watch-btn">
+            <i class="fas fa-play"></i>
+        </button>
         <div class="movie-info">
             <h3>${movie.title || movie.name}</h3>
             <div class="movie-meta">
-                <span class="rating">★ ${movie.vote_average.toFixed(1)}</span>
+                <div class="rating">
+                    <i class="fas fa-star"></i>
+                    ${movie.vote_average.toFixed(1)}
+                </div>
                 <span class="year">${(movie.release_date || movie.first_air_date || '').split('-')[0]}</span>
             </div>
         </div>
     `;
     
-    // Update click handler to navigate to movie.html
     card.addEventListener('click', () => {
         window.location.href = `movie.html?id=${movie.id}&type=${movie.media_type || 'movie'}`;
     });
@@ -80,7 +85,7 @@ document.querySelector('.nav-middle').innerHTML = `
             <button type="submit" class="search-btn"><i class="fas fa-search"></i></button>
         </form>
     </div>
-    <div class="search-results" id="searchResults"></div>
+    <div class="search-results" id="searchResults" style="display: none;"></div>
 `;
 
 // Get DOM elements
